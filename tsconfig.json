@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "module": "ESNext",
+    "target": "esnext",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "strictNullChecks": true,
+    "strict": true,
+    "declaration": true,
+    "outDir": "types",
+    "emitDeclarationOnly": true
+  },
+  "include": ["./src/**/*.mts", "./src/**/*.mjs"]
+}
