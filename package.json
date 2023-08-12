@@ -1,13 +1,14 @@
 {
   "name": "@nyloong/components",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "build": "rm -rf dist types;tsc -p tsconfig.json; rollup -c"
+    "build": "rm -rf dist types; mkdir dist; cp LICENSE README.* dist;tsc -p tsconfig.json; rollup -c"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "猛火Fierflame",
+  "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.3",
     "eslint": "^8.46.0",
