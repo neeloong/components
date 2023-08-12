@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="module" src="../src/Angle/index.mjs"></script>
+	<script type="module" src="../src/Breadcrumb/index.mjs"></script>
+	<script type="module" src="../src/Movable/index.mjs"></script>
+	<script type="module" src="../src/RollDigit/index.mjs"></script>
+	<script type="module" src="../old/Watermark/index.mjs"></script>
+	<script type="module" src="../old/Sign/index.mjs"></script>
+	<title>测试</title>
+	<style>
+		nl-roll-digit {
+			background-color: #88F;
+			line-height: 2em;
+			inline-size: .8em;
+			border-radius: .2em;
+		}
+	</style>
+</head>
+<body>
+	<nl-breadcrumb>
+		<span><a href="#">带链接1</a></span>
+		<span>普通2</span>
+		<span><a href="#">带链接3</a></span>
+		<span>普通4</span>
+		<span>最后一项5</span>
+	</nl-breadcrumb>
+	<br />
+	<nl-roll-digit digit="1"></nl-roll-digit>
+	<nl-roll-digit digit="5"></nl-roll-digit>
+	<nl-roll-digit digit="2"></nl-roll-digit>
+	<nl-roll-digit digit="7"></nl-roll-digit>
+	<nl-roll-digit digit="0"></nl-roll-digit>
+	<nl-roll-digit digit="4"></nl-roll-digit>
+	<nl-roll-digit digit="8"></nl-roll-digit>
+	<nl-roll-digit digit="3"></nl-roll-digit>
+	<nl-roll-digit digit="6"></nl-roll-digit>
+	<nl-roll-digit digit="9"></nl-roll-digit>
+	<nl-roll-digit digit="10"></nl-roll-digit>
+	<nl-watermark text="我的水印" time></nl-watermark>
+	<nl-roll-digit digit="11"></nl-roll-digit>
+	<br />
+	<nl-sign></nl-sign>
+	<form>
+		<nl-angle name="angle" value="260" style="font-size: 5em;"></nl-angle>
+		<button>提交</button>
+	</form>
+	<nl-movable-area style="background-color: #666; width: 500px; height: 500px;">
+		<nl-movable
+		style="background-color: #88F; width: 100px; height: 100px;"
+		roller-movable roller-scalable left-mouse-movable>111</nl-movable>
+	</nl-movable-area>
+</body>
+</html>
