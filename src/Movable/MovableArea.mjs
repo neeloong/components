@@ -60,15 +60,19 @@ export function init(el, children) {
 		const x = pageX - OffX;
 		const y = pageY - OffY;
 		if (event.pointerType === 'mouse') {
-			el.setPointerCapture(pointerId);
-			touchTargets[pointerId] = target;
-			target.mouseBegin(x, y, event.buttons);
+			if (target.mouseBegin(x, y, event.buttons) !== false) {
+				el.setPointerCapture(pointerId);
+				touchTargets[pointerId] = target;
+			}
 			return;
 		}
 		if (event.pointerType === 'touch') {
-			el.setPointerCapture(pointerId);
-			touchTargets[pointerId] = target;
-			target.touchBegin(pointerId, x, y);
+			if (target.touchBegin(pointerId, x, y) !== false) {
+				el.setPointerCapture(pointerId);
+				touchTargets[pointerId] = target;
+
+			}
+
 		}
 	}
 	/**

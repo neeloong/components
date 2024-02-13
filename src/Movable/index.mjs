@@ -6,10 +6,10 @@ import MovableTarget from './MovableTarget.mjs';
  * @typedef {object} Interface
  * @property {(e: EventTarget[]) => boolean | null} match
  * @property {(width: number, height: number) => void} resize
- * @property {(id: number, x: number, y: number) => void} touchBegin
+ * @property {(id: number, x: number, y: number) => void | boolean} touchBegin
  * @property {(id: number, x: number, y: number) => void} touchMove
  * @property {(id: number) => void} touchEnd
- * @property {(x: number, y: number, keys: number) => void} mouseBegin
+ * @property {(x: number, y: number, keys: number) => void | boolean} mouseBegin
  * @property {(x: number, y: number, keys: number) => void} mouseMove
  * @property {() => void} mouseEnd
  * @property {(deltaMode: number, deltaX: number, deltaY: number, pageX: number, pageY: number) => void} wheel
@@ -278,6 +278,7 @@ function init(el, targets) {
 					scaleStop();
 					moveType = 'touch';
 					moveBegin(x, y);
+					return;
 				}
 			} else if (touchList.length === 2) {
 				if (!scaleType && el.touchScalable) {
@@ -285,9 +286,11 @@ function init(el, targets) {
 					scaleType = 'touch';
 					const [t1, t2] = touchList;
 					scaleBegin(t1[0], t1[1], t2[0], t2[1]);
+					return;
 				}
 
 			}
+			return false;
 		},
 		touchEnd(id) {
 			delete touches[id];
@@ -303,14 +306,14 @@ function init(el, targets) {
 			moveMove(x, y);
 		},
 		mouseBegin(x, y, keys) {
-			if (moveType) { return; }
+			if (moveType) { return false; }
 			/** @type {'leftMouse' | 'roller' | ''} */
 			let type = '';
 			if (keys & 1) {
-				if (!el.leftMouseMovable) { return; }
+				if (!el.leftMouseMovable) { return false; }
 				type = 'leftMouse';
 			} else if (keys & 4) {
-				if (!el.rollerMovable) { return; }
+				if (!el.rollerMovable) { return false; }
 				type = 'roller';
 			}
 			scaleStop();
