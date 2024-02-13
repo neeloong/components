@@ -5,6 +5,7 @@
     "target": "esnext",
     "sourceMap": true,
     "skipLibCheck": true,
+    "moduleResolution": "NodeNext",
     "baseUrl": "./src",
     "strictNullChecks": true,
     "strict": true,
@@ -12,5 +13,5 @@
     "outDir": "types",
     "emitDeclarationOnly": true
   },
-  "include": ["./src/**/*.mts", "./src/**/*.mjs"]
+  "include": ["./src"]
 }
