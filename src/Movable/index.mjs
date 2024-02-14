@@ -6,10 +6,10 @@ import MovableTarget from './MovableTarget.mjs';
  * @typedef {object} Interface
  * @property {(e: EventTarget[]) => boolean | null} match
  * @property {(width: number, height: number) => void} resize
- * @property {(id: number, x: number, y: number) => void | boolean} touchBegin
+ * @property {(id: number, x: number, y: number) => boolean?} touchBegin
  * @property {(id: number, x: number, y: number) => void} touchMove
  * @property {(id: number) => void} touchEnd
- * @property {(x: number, y: number, keys: number) => void | boolean} mouseBegin
+ * @property {(x: number, y: number, keys: number) => boolean?} mouseBegin
  * @property {(x: number, y: number, keys: number) => void} mouseMove
  * @property {() => void} mouseEnd
  * @property {(deltaMode: number, deltaX: number, deltaY: number, pageX: number, pageY: number) => void} wheel
@@ -278,7 +278,7 @@ function init(el, targets) {
 					scaleStop();
 					moveType = 'touch';
 					moveBegin(x, y);
-					return;
+					return el.touchCapture;
 				}
 			} else if (touchList.length === 2) {
 				if (!scaleType && el.touchScalable) {
@@ -286,11 +286,11 @@ function init(el, targets) {
 					scaleType = 'touch';
 					const [t1, t2] = touchList;
 					scaleBegin(t1[0], t1[1], t2[0], t2[1]);
-					return;
+					return el.touchCapture;
 				}
 
 			}
-			return false;
+			return null;
 		},
 		touchEnd(id) {
 			delete touches[id];
@@ -306,19 +306,24 @@ function init(el, targets) {
 			moveMove(x, y);
 		},
 		mouseBegin(x, y, keys) {
-			if (moveType) { return false; }
+			if (moveType) { return null; }
 			/** @type {'leftMouse' | 'roller' | ''} */
 			let type = '';
+			/** @type {boolean?} */
+			let res = null;
 			if (keys & 1) {
-				if (!el.leftMouseMovable) { return false; }
+				if (!el.leftMouseMovable) { return null; }
 				type = 'leftMouse';
+				res = el.leftMouseMovableCapture;
 			} else if (keys & 4) {
-				if (!el.rollerMovable) { return false; }
+				if (!el.rollerMovable) { return null; }
 				type = 'roller';
+				res = el.rollerMovableCapture;
 			}
 			scaleStop();
 			moveType = type;
 			moveBegin(x, y);
+			return res;
 		},
 		mouseEnd() {
 			if (!moveType) { return; }
@@ -411,6 +416,12 @@ export default class Movable extends HTMLElement {
 	get inertia() { return this.getAttribute('inertia') !== null; }
 	set inertia(v) { setBoolAttr(this, 'inertia', v); }
 	/**
+	 * 触屏是否捕获
+	 * @type {boolean}
+	 */
+	get touchCapture() { return this.getAttribute('touch-capture') !== null; }
+	set touchCapture(v) { setBoolAttr(this, 'touch-capture', v); }
+	/**
 	 * 是否支持触屏移动
 	 * @type {boolean}
 	 */
@@ -429,6 +440,12 @@ export default class Movable extends HTMLElement {
 	get rollerMovable() { return this.getAttribute('roller-movable') !== null; }
 	set rollerMovable(v) { setBoolAttr(this, 'roller-movable', v); }
 	/**
+	 * 鼠标滚论移动是否捕获
+	 * @type {boolean}
+	 */
+	get rollerMovableCapture() { return this.getAttribute('roller-movable-capture') !== null; }
+	set rollerMovableCapture(v) { setBoolAttr(this, 'roller-movable-capture', v); }
+	/**
 	 * 是否支持鼠标滚论缩放
 	 * @type {boolean}
 	 */
@@ -440,6 +457,12 @@ export default class Movable extends HTMLElement {
 	 */
 	get leftMouseMovable() { return this.getAttribute('left-mouse-movable') !== null; }
 	set leftMouseMovable(v) { setBoolAttr(this, 'left-mouse-movable', v); }
+	/**
+	 * 鼠标左键移动是否捕获
+	 * @type {boolean}
+	 */
+	get leftMouseMovableCapture() { return this.getAttribute('left-mouse-movable-capture') !== null; }
+	set leftMouseMovableCapture(v) { setBoolAttr(this, 'left-mouse-movable-capture', v); }
 	/**
 	 * 是否自动自适应
 	 * @type {boolean}

@@ -59,21 +59,16 @@ export function init(el, children) {
 		const { x: OffX, y: OffY } = el.getBoundingClientRect();
 		const x = pageX - OffX;
 		const y = pageY - OffY;
+		/** @type {boolean?} */
+		let state = null;
 		if (event.pointerType === 'mouse') {
-			if (target.mouseBegin(x, y, event.buttons) !== false) {
-				el.setPointerCapture(pointerId);
-				touchTargets[pointerId] = target;
-			}
-			return;
+			state = target.mouseBegin(x, y, event.buttons);
+		} else if (event.pointerType === 'touch') {
+			state = target.touchBegin(pointerId, x, y);
 		}
-		if (event.pointerType === 'touch') {
-			if (target.touchBegin(pointerId, x, y) !== false) {
-				el.setPointerCapture(pointerId);
-				touchTargets[pointerId] = target;
-
-			}
-
-		}
+		if (typeof state !== 'boolean') { return; }
+		if (state) { el.setPointerCapture(pointerId); }
+		touchTargets[pointerId] = target;
 	}
 	/**
 	 *
@@ -103,6 +98,9 @@ export function init(el, children) {
 	 */
 	function pointerup(event) {
 		const { pointerId } = event;
+		if (el.hasPointerCapture(pointerId)) {
+			el.releasePointerCapture(pointerId);
+		}
 		const target = touchTargets[pointerId];
 		if (!target) { return; }
 		if (event.pointerType === 'mouse') {
@@ -132,8 +130,8 @@ export function init(el, children) {
 
 	el.addEventListener('pointermove', pointermove);
 	el.addEventListener('pointerdown', pointerdown);
-	el.addEventListener('pointerup', e => el.releasePointerCapture(e.pointerId));
-	el.addEventListener('pointercancel', e => el.releasePointerCapture(e.pointerId));
+	el.addEventListener('pointerup', pointerup);
+	el.addEventListener('pointercancel', pointerup);
 	el.addEventListener('lostpointercapture', pointerup);
 	el.addEventListener('touchmove', e => e.preventDefault());
 	return [() => {
