@@ -5,6 +5,7 @@ import * as pathFn from 'node:path';
 import { rollup } from 'rollup';
 import terser from '@rollup/plugin-terser';
 import dts from 'rollup-plugin-dts';
+import * as YAML from 'yaml';
 
 const {
 	name, version, description, author, license,
@@ -53,13 +54,36 @@ const banner = `\
  * @license ${license}
  */`;
 
+const indexFile = await fsPromises.open(getPath(`dist/index.html`), 'w');
 const readmeFile = await fsPromises.open(getPath(`dist/README.md`), 'w');
 await readmeFile.write('匿龙组件库 @Nyloong/components\n==============================\n');
 
+await indexFile.write(`<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="module" src="./index.mjs"></script>
+	<title>匿龙组件库</title>
+</head>
+<body>
+<ul>
+`);
 for (const name of components) {
 	await readmeFile.write('\n');
-	await readmeFile.write(await fsPromises.readFile(getPath(`src/${name}/README.md`)));
+	const yml = YAML.parse(await fsPromises.readFile(getPath(`src/${name}/index.yml`), 'utf-8'));
+	const md = await fsPromises.readFile(getPath(`src/${name}/README.md`));
+	const html = await fsPromises.readFile(getPath(`src/${name}/index.html`), 'utf-8');
+	const tags = [yml.tag, yml.tags].flat().filter(Boolean);
+
+	await readmeFile.write(md);
+	await fsPromises.writeFile(getPath(`dist/${name}.md`), md);
+	await fsPromises.writeFile(getPath(`dist/${name}.html`), html.replace('index.mjs', `${name}.mjs`));
+	await indexFile.write(`<li>${yml.label} ${tags.map(v => `&lt;${v}&gt;`).join(' ')} <a href="./${name}.md">文档</a> <a href="./${name}.html">Demo</a></li>\n`);
 }
+await indexFile.write(`</ul></body>\n</html>\n`);
+
 for (const name of components) {
 	const bundle = await rollup({ input: getPath(`src/${name}/index`) });
 	await bundle.write({ banner, file:  getPath(`dist/${name}.mjs`), format: 'es' });
@@ -68,7 +92,6 @@ for (const name of components) {
 	const bundle = await rollup({ input: getPath(`types/${name}/index.d.mts`), plugins: [dts()] });
 	await bundle.write({ banner, file:  getPath(`dist/${name}.d.mts`), format: 'es' });
 }
-
 const input = '\0NyLoongComponents';
 const indexBundle = await rollup({
 	input,

@@ -406,7 +406,7 @@ function setBoolAttr(el, name, value) {
 	el.setAttribute(name, value === true ? '' : value);
 }
 
-export default class Movable extends HTMLElement {
+class Movable extends HTMLElement {
 	static get Area() { return MovableArea; }
 	static get Target() { return MovableTarget; }
 	/**
@@ -523,3 +523,7 @@ export default class Movable extends HTMLElement {
 customElements.define('nl-movable-area', MovableArea);
 customElements.define('nl-movable', Movable);
 customElements.define('nl-movable-target', MovableTarget);
+
+/** @typedef {MovableArea} Movable.Area */
+/** @typedef {MovableTarget} Movable.Target */
+export default Movable;
