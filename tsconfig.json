@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "checkJs": true,
-    "module": "ESNext",
+    "module": "NodeNext",
     "target": "esnext",
+    "allowJs": true,
     "sourceMap": true,
     "skipLibCheck": true,
     "moduleResolution": "NodeNext",

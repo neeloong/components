@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="module" src="./index.mjs"></script>
+	<title>菜单 &lt;nl-menu&gt;</title>
+</head>
+<body>
+	<script>
+		document.addEventListener('contextmenu', e => {
+			if (e.defaultPrevented) { return; }
+			e.preventDefault();
+			contextmenu.x = e.clientX;
+			contextmenu.y = e.clientY;
+			contextmenu.show();
+		})
+	</script>
+	<span>
+		<button onclick="this.nextElementSibling.show()">下拉菜单</button>
+		<nl-menu target is-popover>
+			<div onclick="alert('下拉菜单: 1')">下拉菜单: 1</div>
+			<nl-menu disabled>
+				<div slot="label">下拉菜单: 2 禁用</div>
+				<div onclick="alert('下拉菜单: 2-1')">下拉菜单: 2-1</div>
+				<nl-menu>
+					<div slot="label">下拉菜单: 2-2</div>
+					<div onclick="alert('下拉菜单: 2-2-1')">下拉菜单: 2-2-1</div>
+					<div onclick="alert('下拉菜单: 2-2-2')">下拉菜单: 2-2-2</div>
+					<div onclick="alert('下拉菜单: 2-2-3')">下拉菜单: 2-2-3</div>
+					<div onclick="alert('下拉菜单: 2-2-4')">下拉菜单: 2-2-4</div>
+				</nl-menu>
+				<nl-menu>
+					<div slot="label">下拉菜单: 2-3</div>
+					<div onclick="alert('下拉菜单: 2-3-1')">下拉菜单: 2-3-1</div>
+					<div onclick="alert('下拉菜单: 2-3-2')">下拉菜单: 2-3-2</div>
+					<div onclick="alert('下拉菜单: 2-3-3')">下拉菜单: 2-3-3</div>
+					<div onclick="alert('下拉菜单: 2-3-4')">下拉菜单: 2-3-4</div>
+				</nl-menu>
+				<div onclick="alert('下拉菜单: 2-4')">下拉菜单: 2-4</div>
+			</nl-menu>
+			<nl-menu>
+				<div slot="label">下拉菜单: 3</div>
+				<div disabled>下拉菜单: 3-1 禁用</div>
+				<nl-menu>
+					<div slot="label">下拉菜单: 3-2</div>
+					<div onclick="alert('下拉菜单: 3-2-1')">下拉菜单: 3-2-1</div>
+					<div onclick="alert('下拉菜单: 3-2-2')">下拉菜单: 3-2-2</div>
+					<div onclick="alert('下拉菜单: 3-2-3')">下拉菜单: 3-2-3</div>
+					<div onclick="alert('下拉菜单: 3-2-4')">下拉菜单: 3-2-4</div>
+				</nl-menu>
+				<nl-menu>
+					<div slot="label">下拉菜单: 3-3</div>
+					<div onclick="alert('下拉菜单: 3-3-1')">下拉菜单: 3-3-1</div>
+					<div onclick="alert('下拉菜单: 3-3-2')">下拉菜单: 3-3-2</div>
+					<div onclick="alert('下拉菜单: 3-3-3')">下拉菜单: 3-3-3</div>
+					<div onclick="alert('下拉菜单: 3-3-4')">下拉菜单: 3-3-4</div>
+				</nl-menu>
+				<div onclick="alert('下拉菜单: 3-4')">下拉菜单: 3-4</div>
+			</nl-menu>
+		</nl-menu>
+	</span>
+	上下文菜单也已经被替换
+	<nl-menu id="contextmenu">
+
+		<div onclick="alert('上下文菜单: 1')">上下文菜单: 1</div>
+		<nl-menu disabled>
+			<div slot="label">上下文菜单: 2 禁用</div>
+			<div onclick="alert('上下文菜单: 2-1')">上下文菜单: 2-1</div>
+			<nl-menu>
+				<div slot="label">上下文菜单: 2-2</div>
+				<div onclick="alert('上下文菜单: 2-2-1')">上下文菜单: 2-2-1</div>
+				<div onclick="alert('上下文菜单: 2-2-2')">上下文菜单: 2-2-2</div>
+				<div onclick="alert('上下文菜单: 2-2-3')">上下文菜单: 2-2-3</div>
+				<div onclick="alert('上下文菜单: 2-2-4')">上下文菜单: 2-2-4</div>
+			</nl-menu>
+			<nl-menu>
+				<div slot="label">上下文菜单: 2-3</div>
+				<div onclick="alert('上下文菜单: 2-3-1')">上下文菜单: 2-3-1</div>
+				<div onclick="alert('上下文菜单: 2-3-2')">上下文菜单: 2-3-2</div>
+				<div onclick="alert('上下文菜单: 2-3-3')">上下文菜单: 2-3-3</div>
+				<div onclick="alert('上下文菜单: 2-3-4')">上下文菜单: 2-3-4</div>
+			</nl-menu>
+			<div onclick="alert('上下文菜单: 2-4')">上下文菜单: 2-4</div>
+		</nl-menu>
+		<nl-menu>
+			<div slot="label">上下文菜单: 3</div>
+			<div disabled>上下文菜单: 3-1 禁用</div>
+			<nl-menu>
+				<div slot="label">上下文菜单: 3-2</div>
+				<div onclick="alert('上下文菜单: 3-2-1')">上下文菜单: 3-2-1</div>
+				<div onclick="alert('上下文菜单: 3-2-2')">上下文菜单: 3-2-2</div>
+				<div onclick="alert('上下文菜单: 3-2-3')">上下文菜单: 3-2-3</div>
+				<div onclick="alert('上下文菜单: 3-2-4')">上下文菜单: 3-2-4</div>
+			</nl-menu>
+			<nl-menu>
+				<div slot="label">上下文菜单: 3-3</div>
+				<div onclick="alert('上下文菜单: 3-3-1')">上下文菜单: 3-3-1</div>
+				<div onclick="alert('上下文菜单: 3-3-2')">上下文菜单: 3-3-2</div>
+				<div onclick="alert('上下文菜单: 3-3-3')">上下文菜单: 3-3-3</div>
+				<div onclick="alert('上下文菜单: 3-3-4')">上下文菜单: 3-3-4</div>
+			</nl-menu>
+			<div onclick="alert('上下文菜单: 3-4')">上下文菜单: 3-4</div>
+		</nl-menu>
+	</nl-menu>
+	</span>
+</body>
+</html>
