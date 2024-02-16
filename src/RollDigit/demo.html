@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<script type="module" src="./index.mjs"></script>
+<style>
+nl-roll-digit {
+	background-color: #88F;
+	line-height: 2em;
+	inline-size: .8em;
+	border-radius: .2em;
+}
+</style>
+<nl-roll-digit value="1527048369.12" digit="9"></nl-roll-digit>
+<nl-roll-digit value="1527048369.12" digit="8"></nl-roll-digit>
+<nl-roll-digit value="1527048369.12" digit="7"></nl-roll-digit>
+<nl-roll-digit value="1527048369.12" digit="6"></nl-roll-digit>
+<nl-roll-digit value="1527048369.12" digit="5"></nl-roll-digit>
+<nl-roll-digit value="1527048369.12" digit="4"></nl-roll-digit>
+<nl-roll-digit value="1527048369.12" digit="3"></nl-roll-digit>
+<nl-roll-digit value="1527048369.12" digit="2"></nl-roll-digit>
+<nl-roll-digit value="1527048369.12" digit="1"></nl-roll-digit>
+<nl-roll-digit value="1527048369.12" digit="0"></nl-roll-digit>
+.
+<nl-roll-digit value="1527048369.12" digit="-1"></nl-roll-digit>
+<nl-roll-digit value="1527048369.12" digit="-2"></nl-roll-digit>
+<form onsubmit="setValue(n.value);return false">
+	<input value="1527048369.12" id="n" type="number" step="0.01" />
+	<button>更新</button>
+</form>
+<script>
+const rollDigits = document.querySelectorAll('nl-roll-digit');
+function setValue(value) {
+	for (const rd of document.querySelectorAll('nl-roll-digit')) {
+		rd.value = value;
+	}
+}
+</script>

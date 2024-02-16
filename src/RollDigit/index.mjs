@@ -46,24 +46,21 @@ const style = `
 
 /**
  * 数字滚动组件
- * 不支持 CSS `writing-mode`
  */
 export default class RollDigit extends HTMLElement {
-	static observedAttributes = ['digit'];
-	#style = document.createElement('style');
+	static observedAttributes = ['digit', 'value'];
+	#main = document.createElement('span');
 	#value = document.createElement('span');
-	#digit() {
-		const n = this.digit;
-		const style = `.root { translate: 0 -${n * 10}%; }`;
+	#update() {
+		const n = this.currentDigit;
 		this.#value.innerText = `${n}`;
-		this.#style.textContent = style;
+		this.#main.style.insetBlockStart = `-${n}00%`;
 	}
 	constructor() {
 		super();
 		const shadow = this.attachShadow({mode:'closed'});
-		shadow.appendChild(this.#style);
 		shadow.appendChild(document.createElement('style')).textContent = style;
-		const main = shadow.appendChild(document.createElement('span'));
+		const main = shadow.appendChild(this.#main);
 		main.className = 'root';
 		for (let i = 0; i < 10; i++) {
 			main.appendChild(document.createElement('span'));
@@ -71,11 +68,16 @@ export default class RollDigit extends HTMLElement {
 		shadow.appendChild(this.#value).className = 'value';
 	}
 	/**
-	 * 显示的数字
+	 * @type {number}
+	 */
+	get currentDigit() {
+		return Math.floor(Math.abs(this.value) / 10 ** this.digit % 10);
+	}
+	/**
 	 * @type {number}
 	 */
 	get digit() {
-		return (parseInt(this.getAttribute('digit') || '') || 0) % 10;
+		return parseInt(this.getAttribute('digit') || '') || 0;
 	}
 	/** @type {number | string | null | undefined} */
 	set digit(digit) {
@@ -85,8 +87,22 @@ export default class RollDigit extends HTMLElement {
 			this.setAttribute('digit', String(digit));
 		}
 	}
+	/**
+	 * @type {number}
+	 */
+	get value() {
+		return parseFloat(this.getAttribute('value') || '') || 0;
+	}
+	/** @type {number | string | null | undefined} */
+	set value(value) {
+		if (value === undefined || value === null) {
+			this.removeAttribute('value');
+		} else {
+			this.setAttribute('value', String(value));
+		}
+	}
 	connectedCallback() {
-		this.#digit();
+		this.#update();
 	}
 	/**
 	 * @param {string} attrName
@@ -98,8 +114,8 @@ export default class RollDigit extends HTMLElement {
 	attributeChangedCallback(attrName, oldVal, newVal) {
 		if (oldVal === newVal) { return; }
 		switch (attrName) {
-			case 'digit': {
-				this.#digit();
+			case 'digit': case 'value': {
+				this.#update();
 				break;
 			}
 		}

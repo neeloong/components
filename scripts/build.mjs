@@ -74,13 +74,28 @@ for (const name of components) {
 	await readmeFile.write('\n');
 	const yml = YAML.parse(await fsPromises.readFile(getPath(`src/${name}/index.yml`), 'utf-8'));
 	const md = await fsPromises.readFile(getPath(`src/${name}/README.md`));
-	const html = await fsPromises.readFile(getPath(`src/${name}/index.html`), 'utf-8');
+	const demo = await fsPromises.readFile(getPath(`src/${name}/demo.html`), 'utf-8');
 	const tags = [yml.tag, yml.tags].flat().filter(Boolean);
+
+	const title = `${yml.label} ${tags.map(v => `&lt;${v}&gt;`).join(' ')}`;
 
 	await readmeFile.write(md);
 	await fsPromises.writeFile(getPath(`dist/${name}.md`), md);
-	await fsPromises.writeFile(getPath(`dist/${name}.html`), html.replace('index.mjs', `${name}.mjs`));
-	await indexFile.write(`<li>${yml.label} ${tags.map(v => `&lt;${v}&gt;`).join(' ')} <a href="./${name}.md">文档</a> <a href="./${name}.html">Demo</a></li>\n`);
+	await fsPromises.writeFile(getPath(`dist/${name}.html`), `<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="module" src="./${name}.mjs"></script>
+	<title>${title}</title>
+</head>
+<body>
+${demo.split('\n').slice(2).join('\n')}
+</body>
+</html>
+`);
+	await indexFile.write(`<li>${title} <a href="./${name}.md">文档</a> <a href="./${name}.html">Demo</a></li>\n`);
 }
 await indexFile.write(`</ul></body>\n</html>\n`);
 
