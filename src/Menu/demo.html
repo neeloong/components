@@ -11,7 +11,7 @@
 </script>
 <span>
 	<button onclick="this.nextElementSibling.show()">下拉菜单</button>
-	<nl-menu target is-popover>
+	<nl-menu target>
 		<div onclick="alert('下拉菜单: 1')">下拉菜单: 1</div>
 		<nl-menu disabled>
 			<div slot="label">下拉菜单: 2 禁用</div>
@@ -54,7 +54,7 @@
 	</nl-menu>
 </span>
 上下文菜单也已经被替换
-<nl-menu id="contextmenu">
+<nl-menu id="contextmenu" mask>
 
 	<div onclick="alert('上下文菜单: 1')">上下文菜单: 1</div>
 	<nl-menu disabled>

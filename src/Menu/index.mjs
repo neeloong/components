@@ -155,7 +155,7 @@ function getLayout(root) {
 }
 
 export default class Menu extends HTMLElement {
-	static observedAttributes = ['open', 'hidden', 'target', 'x', 'y', 'direction', 'align', 'modal', 'disabled'];
+	static observedAttributes = ['open', 'hidden', 'target', 'x', 'y', 'direction', 'align', 'mask', 'disabled'];
 	close() { this.removeAttribute('open'); }
 	show() { this.setAttribute('open', ''); }
 	get open() { return this.hasAttribute('open'); }
@@ -168,12 +168,12 @@ export default class Menu extends HTMLElement {
 			this.removeAttribute('disabled');
 		}
 	}
-	get modal() { return this.hasAttribute('modal'); }
-	set modal(modal) {
-		if (modal) {
-			this.setAttribute('modal', '');
+	get mask() { return this.hasAttribute('mask'); }
+	set mask(mask) {
+		if (mask) {
+			this.setAttribute('mask', '');
 		} else {
-			this.removeAttribute('modal');
+			this.removeAttribute('mask');
 		}
 	}
 	get x() { return parseFloat(this.getAttribute('x') || '') || 0; }
@@ -323,7 +323,7 @@ export default class Menu extends HTMLElement {
 			this.#updateLayout();
 			const subMenu = this.#currentSubMenu;
 			if (subMenu) { subMenu.#close(); }
-			if (hasPopover && !this.hasAttribute('modal')) {
+			if (hasPopover && !this.hasAttribute('mask')) {
 				dialog.popover = 'manual';
 				dialog.showPopover();
 				openMenus.add(this);
@@ -468,7 +468,7 @@ export default class Menu extends HTMLElement {
 				}
 				break;
 			}
-			case 'modal': {
+			case 'mask': {
 				if (newVal !== null) {
 					const dialog = this.#dialog;
 					if (dialog.getAttribute('popover') !== null) {
