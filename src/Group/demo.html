@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<script type="module" src="./index.mjs"></script>
+<style>
+	nl-group span {
+		border: 1px solid;
+		font-size: 60px;
+	}
+</style>
+<nl-group column radius="20">
+	<span>1</span>
+	<span>2</span>
+	<nl-group>
+		<span>3.1</span>
+		<span nl-long>3.2</span>
+		<span>3.3</span>
+	</nl-group>
+	<nl-group>
+		<span>4.1</span>
+		<span>4.2</span>
+		<span>4.3</span>
+	</nl-group>
+	<span>5</span>
+	<nl-group>
+		<span>6.1</span>
+		<nl-group column>
+			<span>6.2.1</span>
+			<span>6.2.2</span>
+			<span>6.2.3</span>
+		</nl-group>
+		<span>6.3</span>
+	</nl-group>
+</nl-group>
