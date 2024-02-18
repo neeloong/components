@@ -119,7 +119,7 @@ export default class Cell extends HTMLElement {
 		const label = body.appendChild(this.#label);
 		label.className = 'label';
 		const explain = body.appendChild(this.#explain);
-		explain.part = 'explain';
+		explain.setAttribute('part', 'explain');
 		explain.className = 'explain';
 
 		const extraSlot = shadow.appendChild(document.createElement('slot'));
@@ -131,7 +131,7 @@ export default class Cell extends HTMLElement {
 		});
 		const link = shadow.appendChild(document.createElement('div'));
 		link.className = 'link';
-		link.part = 'link';
+		link.setAttribute('part', 'link');
 	}
 	/**
 	 * @param {string} attrName
