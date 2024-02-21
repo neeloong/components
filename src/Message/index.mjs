@@ -29,6 +29,7 @@ section {
 	transition-duration: inherit;
 	opacity: 0;
 	display: none;
+	z-index: 9999999999999999999999;
 }
 section.open {
 	opacity: 1;
