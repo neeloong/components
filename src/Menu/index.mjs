@@ -504,4 +504,6 @@ export default class Menu extends HTMLElement {
 	}
 }
 
-customElements.define('nl-menu', Menu);
+try {
+	customElements.define('nl-menu', Menu);
+} catch {}

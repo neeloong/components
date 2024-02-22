@@ -520,9 +520,11 @@ class Movable extends HTMLElement {
 	adoptedCallback() { }
 }
 
-customElements.define('nl-movable-area', MovableArea);
-customElements.define('nl-movable', Movable);
-customElements.define('nl-movable-target', MovableTarget);
+try {
+	customElements.define('nl-movable-area', MovableArea);
+	customElements.define('nl-movable', Movable);
+	customElements.define('nl-movable-target', MovableTarget);
+} catch {}
 
 /** @typedef {MovableArea} Movable.Area */
 /** @typedef {MovableTarget} Movable.Target */

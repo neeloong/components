@@ -117,4 +117,6 @@ export default class Group extends HTMLElement {
 	}
 }
 
-customElements.define('nl-group', Group);
+try {
+	customElements.define('nl-group', Group);
+} catch {}

@@ -302,4 +302,6 @@ export default class Modal extends HTMLElement {
 	}
 }
 
-customElements.define('nl-modal', Modal);
+try {
+	customElements.define('nl-modal', Modal);
+} catch {}

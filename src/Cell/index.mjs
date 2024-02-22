@@ -154,4 +154,6 @@ export default class Cell extends HTMLElement {
 	}
 }
 
-customElements.define('nl-cell', Cell);
+try {
+	customElements.define('nl-cell', Cell);
+} catch {}

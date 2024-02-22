@@ -113,4 +113,6 @@ export default class Row extends HTMLElement {
 
 }
 
-customElements.define('nl-row', Row);
+try {
+	customElements.define('nl-row', Row);
+} catch {}

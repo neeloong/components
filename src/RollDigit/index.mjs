@@ -192,4 +192,6 @@ export default class RollDigit extends HTMLElement {
 	}
 }
 
-customElements.define('nl-roll-digit', RollDigit);
+try {
+	customElements.define('nl-roll-digit', RollDigit);
+} catch {}

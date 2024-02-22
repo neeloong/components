@@ -73,5 +73,6 @@ export default class Space extends HTMLElement {
 	}
 }
 
-
-customElements.define('nl-space', Space);
+try {
+	customElements.define('nl-space', Space);
+} catch {}

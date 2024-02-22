@@ -60,4 +60,6 @@ export default class Breadcrumb extends HTMLElement {
 	}
 }
 
-customElements.define('nl-breadcrumb', Breadcrumb);
+try {
+	customElements.define('nl-breadcrumb', Breadcrumb);
+} catch {}

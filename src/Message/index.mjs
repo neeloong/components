@@ -293,4 +293,6 @@ export default class Message extends HTMLElement {
 	}
 }
 
-customElements.define('nl-message', Message);
+try {
+	customElements.define('nl-message', Message);
+} catch {}

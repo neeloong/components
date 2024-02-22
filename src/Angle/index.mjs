@@ -80,4 +80,6 @@ export default class Angle extends HTMLElement {
 	}
 }
 
-customElements.define('nl-angle', Angle);
+try {
+	customElements.define('nl-angle', Angle);
+} catch {}
