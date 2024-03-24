@@ -17,6 +17,14 @@
 | align | `align` | `'start', 'end', 'center'` 中的一个或多个， HTML 属性中`,`隔开, js 属性中为数组 | 菜单的对其方式，仅根菜单有效 |
 | disabled | `disabled` | `boolean` | 是否禁用当前菜单，仅子菜单有效 |
 
+### 状态
+
+- `--open` 菜单打开状态
+
+### 伪元素
+
+- `::port(menu)` 弹出菜单部分
+
 ### 插槽
 
 | 插槽 | 说明 |
