@@ -1,6 +1,6 @@
 const style = `
 :host {
-	display: contexts;
+	display: contents;
 }
 div {
 	display: flex;
@@ -225,6 +225,7 @@ export default class Menu extends HTMLElement {
 
 	#label = document.createElement('div');
 	#dialog = document.createElement('dialog');
+	#internals = this.attachInternals();
 	/** @type {Menu} */
 	#root = this;
 	constructor() {
@@ -243,6 +244,7 @@ export default class Menu extends HTMLElement {
 		label.addEventListener('click', e=> { e.stopPropagation(); });
 
 		const dialog = shadow.appendChild(this.#dialog);
+		dialog.setAttribute('part', 'menu');
 		const dialogSlot = dialog.appendChild(document.createElement('slot'));
 		dialog.addEventListener('click', e => {
 			if (this.#parentMenu) { return; }
@@ -298,6 +300,8 @@ export default class Menu extends HTMLElement {
 		const dialog = this.#dialog;
 		dialog.close();
 
+		// @ts-ignore
+		this.#internals.states?.remove('--open');
 		this.#label.classList.remove('open');
 		dialog.removeAttribute('popover');
 		this.#open = false;
@@ -332,6 +336,8 @@ export default class Menu extends HTMLElement {
 			}
 		}
 		this.#label.classList.add('open');
+		// @ts-ignore
+		this.#internals.states?.add('--open');
 		requestAnimationFrame(() => { if (this.#mounted) { this.#update(); } });
 		this.#open = true;
 	}
