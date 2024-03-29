@@ -301,7 +301,7 @@ export default class Menu extends HTMLElement {
 		dialog.close();
 
 		// @ts-ignore
-		this.#internals.states?.remove('--open');
+		this.#internals.states?.delete('--open');
 		this.#label.classList.remove('open');
 		dialog.removeAttribute('popover');
 		this.#open = false;
@@ -392,7 +392,7 @@ export default class Menu extends HTMLElement {
 		if (blockDir) { size.reverse(); }
 		const [[inlineStartX, inlineSizeX, inlineEndX], [blockStartX, blockSizeX, blockEndX]] = size;
 		const [rowSize, colSize] = blockDir ? [inline, block] : [block, inline];
-		const align = s.find(a => a === 'start' ? blockSizeX + blockEndX > rowSize : a === 'start' ? blockSizeX + blockStartX > rowSize : true) || '';
+		const align = s.find(a => a === 'start' ? blockSizeX + blockEndX > rowSize : a === 'end' ? blockSizeX + blockStartX > rowSize : true) || '';
 
 		let insetInlineStart = dir === 'inlineStart' || dir === 'blockStart' ? inlineStartX - colSize : inlineStartX + inlineSizeX;
 		let insetBlockStart = 0;
