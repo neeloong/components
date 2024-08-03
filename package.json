@@ -1,11 +1,19 @@
 {
-  "name": "@nyloong/components",
+  "name": "@neeloong/components",
   "version": "0.5.2",
   "description": "",
   "main": "index.js",
   "private": true,
   "scripts": {
     "build": "rm -rf dist types; mkdir dist; tsc -p tsconfig.json; ./scripts/build.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/neeloong/components.git"
+  },
+  "homepage": "https://gitee.com/neeloong/components#git-readme",
+  "bugs": {
+    "url": "https://gitee.com/neeloong/components/issues"
   },
   "author": "猛火Fierflame",
   "license": "MIT",

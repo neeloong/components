@@ -37,16 +37,16 @@ dialog {
 	outline: none;
 }
 div, dialog ::slotted(*) {
-	color: var(--nyloong-menu-fg, #000);
-	background: var(--nyloong-menu-bg, #FFF);
+	color: var(--neeloong-menu-fg, #000);
+	background: var(--neeloong-menu-bg, #FFF);
 }
 div.open, div:hover, div:focus, dialog ::slotted(:hover), dialog ::slotted(:focus) {
-	color: var(--nyloong-menu-fg-highlight, #000);
-	background: var(--nyloong-menu-bg-highlight, #6666);
+	color: var(--neeloong-menu-fg-highlight, #000);
+	background: var(--neeloong-menu-bg-highlight, #6666);
 }
 :host([disabled]) div, dialog ::slotted([disabled]) {
-	color: var(--nyloong-menu-fg-disabled, #AAA);
-	background: var(--nyloong-menu-bg-disabled, #FFF);
+	color: var(--neeloong-menu-fg-disabled, #AAA);
+	background: var(--neeloong-menu-bg-disabled, #FFF);
 }
 
 dialog::backdrop {

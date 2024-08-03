@@ -8,7 +8,7 @@ import dts from 'rollup-plugin-dts';
 import * as YAML from 'yaml';
 
 const {
-	name, version, description, author, license,
+	name, version, description, author, license, repository, homepage, bugs,
 } = JSON.parse(await fsPromises.readFile('./package.json', 'utf-8'));
 
 
@@ -34,7 +34,7 @@ const typeExport = components.map(v => `export type * from './${v}.mjs';\n`);
 fsPromises.writeFile(getPath('dist/index.mjs'), [...mainExport].join(''));
 fsPromises.writeFile(getPath('dist/index.d.mts'), [...mainExport, ...typeExport].join(''));
 fsPromises.writeFile(getPath('dist/package.json'), JSON.stringify({
-	name, version, description, author, license,
+	name, version, description, author, license, repository, homepage, bugs,
 	main: 'index.mjs', type: 'module',
 	unpkg: './index.min.js', jsdelivr: './index.min.js',
 	exports: {
@@ -49,14 +49,14 @@ const year = new Date().getFullYear();
 const date = bYear === year ? bYear : `${bYear}-${year}`;
 const banner = `\
 /*!
- * 匿龙组件库 @nyloong/components v${version}
+ * 匿龙组件库 @neeloong/components v${version}
  * (c) ${date} ${author}
  * @license ${license}
  */`;
 
 const indexFile = await fsPromises.open(getPath(`dist/index.html`), 'w');
 const readmeFile = await fsPromises.open(getPath(`dist/README.md`), 'w');
-await readmeFile.write('匿龙组件库 @Nyloong/components\n==============================\n');
+await readmeFile.write('匿龙组件库 @neeloong/components\n==============================\n');
 
 await indexFile.write(`<!DOCTYPE html>
 <html>
@@ -107,11 +107,11 @@ for (const name of components) {
 	const bundle = await rollup({ input: getPath(`types/${name}/index.d.mts`), plugins: [dts()] });
 	await bundle.write({ banner, file:  getPath(`dist/${name}.d.mts`), format: 'es' });
 }
-const input = '\0NyLoongComponents';
+const input = '\0NeeLoongComponents';
 const indexBundle = await rollup({
 	input,
 	plugins: [{
-		name: 'NyLoongComponents',
+		name: 'NeeLoongComponents',
 		resolveId(source) {
 			if (source !== input) { return null; }
 			return { id: input, moduleSideEffects: true };
@@ -125,5 +125,5 @@ const indexBundle = await rollup({
 	}],
 });
 await indexBundle.write({ file: getPath('dist/index.min.mjs'), format: 'es', plugins: [terser()], sourcemap: true });
-await indexBundle.write({ file: getPath('dist/index.min.js'), name: 'NyLoongComponents', format: 'umd', plugins: [terser()], sourcemap: true });
-await indexBundle.write({ file: getPath('dist/index.js'), name: 'NyLoongComponents', format: 'umd', sourcemap: true });
+await indexBundle.write({ file: getPath('dist/index.min.js'), name: 'NeeLoongComponents', format: 'umd', plugins: [terser()], sourcemap: true });
+await indexBundle.write({ file: getPath('dist/index.js'), name: 'NeeLoongComponents', format: 'umd', sourcemap: true });
