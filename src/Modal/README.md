@@ -14,6 +14,7 @@
 | `mask-closable` | `maskClosable` |                   | `boolean` | 点击遮罩层时，是否可以关闭对话框                           |
 | `disabled`      | `disabled`     |                   | `boolean` | 取消按钮、关闭按钮、确定按钮及点击遮罩层关闭对话框是否可用 |
 | `size`          | `size`         | `--nl-modal-size` | `string`  | 对话框宽度                                                 |
+| `position`      | `position`     |                   | `string`  | 对话框的显示位置                                           |
 
 ### 方法
 
