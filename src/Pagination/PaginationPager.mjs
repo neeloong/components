@@ -35,6 +35,7 @@ export class PaginationPager extends PaginationWidget {
 			el.remove();
 		}
 		const buttons = Object.create(null);
+		/** @type {HTMLElement[]} */
 		const children = [];
 		this.#buttons = buttons;
 		this.#children = children;
@@ -54,7 +55,7 @@ export class PaginationPager extends PaginationWidget {
 			button.setAttribute('part', k === current ? 'button current' : 'button');
 			button.disabled = disabled || k === current;
 			button.addEventListener('click', () => {
-				this.pagination.setPage(k);
+				this.pagination?.setPage(k);
 			});
 			children.push(button);
 			shadow.appendChild(button);
@@ -82,10 +83,10 @@ export class PaginationPager extends PaginationWidget {
 		}
 
 	}
-	#updateDisabeld() {
+	#updateDisabled() {
 		const { disabled } = this;
 		const current = String(this.page);
-		for (const [k, v] of Object.fromEntries(this.#buttons)) {
+		for (const [k, v] of Object.entries(this.#buttons)) {
 			v.disabled = disabled || k === current;
 		}
 	}
@@ -104,7 +105,7 @@ export class PaginationPager extends PaginationWidget {
 		if (oldVal === newVal) { return; }
 		switch (attrName) {
 			case 'disabled':
-				this.#updateDisabeld();
+				this.#updateDisabled();
 				break;
 		}
 	}

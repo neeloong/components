@@ -94,6 +94,7 @@ export class PaginationSizer extends PaginationWidget {
 		if (s.delete(0)) {
 			select.appendChild(this.#nonLabel);
 		}
+		/** @type {HTMLOptionElement[]} */
 		const labels = [];
 		this.#labels = labels;
 		const labelText = this.label;

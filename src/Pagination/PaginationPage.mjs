@@ -10,7 +10,7 @@ export class PaginationPage extends PaginationWidget {
 	 * 每页数量
 	 * @type {number}
 	 */
-	get value() { return Math.max(1, parseInt(this.getAttribute('value')) || 1); }
+	get value() { return Math.max(1, parseInt(this.getAttribute('value') || '') || 1); }
 	set value(value) {
 		if (!value) {
 			this.removeAttribute('value');
@@ -48,7 +48,7 @@ export class PaginationPage extends PaginationWidget {
 		slot.innerText = '1';
 		return slot;
 	})();
-	#updateDisabeld() { this.#button.disabled = this.disabled || this.isCurrent; }
+	#updateDisabled() { this.#button.disabled = this.disabled || this.isCurrent; }
 	constructor() {
 		super();
 		this.addEventListener('click', e => {
@@ -57,13 +57,13 @@ export class PaginationPage extends PaginationWidget {
 			if (this.#button.disabled) {
 				e.stopPropagation();
 			} else if (!defaultPrevented) {
-				this.pagination.setPage(this.value);
+				this.pagination?.setPage(this.value);
 			}
 		});
 	}
 	/** @protected */
 	updateCallback() {
-		this.#updateDisabeld();
+		this.#updateDisabled();
 	}
 	/**
 	 * @param {string} attrName
@@ -76,10 +76,10 @@ export class PaginationPage extends PaginationWidget {
 		switch (attrName) {
 			case 'value':
 				this.#slot.innerText = String(this.value);
-				this.#updateDisabeld();
+				this.#updateDisabled();
 				break;
 			case 'disabled':
-				this.#updateDisabeld();
+				this.#updateDisabled();
 				break;
 		}
 	}

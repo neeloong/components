@@ -7,13 +7,14 @@ export class PaginationValue extends PaginationWidget {
 	static observedAttributes = ['name'];
 	/**
 	 * 每页数量
-	 * @type {string}
+	 * @type {'size' | 'total' | 'pages' | 'page' | 'start' | 'end' | 'page'}
 	 */
 	get name() {
 		const name = this.getAttribute('name')?.toLowerCase() || '';
-		if (['size', 'total', 'pages', 'page', 'start', 'end'].includes(name)) { return name; }
+		if (['size', 'total', 'pages', 'page', 'start', 'end'].includes(name)) { return /** @type {any} */(name); }
 		return 'page';
 	}
+	/** @param {string} value*/
 	set name(value) {
 		if (!value) {
 			this.removeAttribute('name');
@@ -27,7 +28,7 @@ export class PaginationValue extends PaginationWidget {
 	#text = this.#shadow.appendChild(document.createTextNode(''));
 	#update() {
 		const value = this.#state[this.name];
-		this.#text.textContent = value;
+		this.#text.textContent = String(value);
 	}
 	/** @protected */
 	updateCallback() {

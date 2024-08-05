@@ -29,7 +29,7 @@ export class PaginationNext extends PaginationWidget {
 		return button;
 	})();
 	#slot = this.#button.appendChild(document.createElement('slot'));
-	#updateDisabeld() { this.#button.disabled = this.disabled || this.page === this.pages; }
+	#updateDisabled() { this.#button.disabled = this.disabled || this.page === this.pages; }
 	constructor() {
 		super();
 		this.addEventListener('click', e => {
@@ -38,13 +38,13 @@ export class PaginationNext extends PaginationWidget {
 			if (this.#button.disabled) {
 				e.stopPropagation();
 			} else if (!defaultPrevented) {
-				this.pagination.setPage(this.page + 1);
+				this.pagination?.setPage(this.page + 1);
 			}
 		});
 	}
 	/** @protected */
 	updateCallback() {
-		this.#updateDisabeld();
+		this.#updateDisabled();
 	}
 
 	/**
@@ -57,7 +57,7 @@ export class PaginationNext extends PaginationWidget {
 		if (oldVal === newVal) { return; }
 		switch (attrName) {
 			case 'disabled':
-				this.#updateDisabeld();
+				this.#updateDisabled();
 				break;
 		}
 	}
