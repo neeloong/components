@@ -126,6 +126,7 @@ export default class Collapse extends HTMLElement {
 	})();
 	#header = (() => {
 		const header = document.createElement('header');
+		header.setAttribute('part', 'header');
 		this.#shadow.appendChild(header);
 		header.tabIndex = 0;
 		/** @param {Event} e */
@@ -162,6 +163,7 @@ export default class Collapse extends HTMLElement {
 
 	#body = (() => {
 		const body = document.createElement('section');
+		body.setAttribute('part', 'main');
 		this.#shadow.appendChild(body);
 		return body;
 	})();

@@ -16,6 +16,12 @@
 | `menu` | `menu`  | `boolean` | `false` | 是否为菜单 |
 | `label` | `label` | `string` | `` | 标签内容 |
 
+
+### 伪元素
+
+- `::part(header)` 头部部分
+- `::part(main)` 主体部分
+
 ### 插槽
 
 | 插槽       | 说明                 |
