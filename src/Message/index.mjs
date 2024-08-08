@@ -264,7 +264,7 @@ export default class Message extends HTMLElement {
 	disconnectedCallback() {
 		this.#mounted = false;
 		this.#hide();
-		this.hidePopover();
+		this.#hidePopover();
 	}
 	/**
 	 * @param {string} attrName
