@@ -172,13 +172,28 @@ export default class Message extends HTMLElement {
 		main.appendChild(document.createElement('slot')).setAttribute('part', 'slot');
 		const close = main.appendChild(document.createElement('div'));
 		close.className = 'close';
-		close.addEventListener('click', () => { this.open = false; });
+		close.addEventListener('click', e => { this.#close(e); });
 		close.setAttribute('part', 'close');
+		close.tabIndex = 0;
+		close.addEventListener('keydown', e => {
+			if (!['Enter', 'Space'].includes(e.code)) { return; }
+			this.#close(e);
+		});
 		main.addEventListener('transitionend', e => {
 			if (e.propertyName !== 'opacity') { return; }
 			if (main.classList.contains('open')) { return; }
 			this.#hidePopover();
 		});
+	}
+	/**
+	 * @param {Event} e
+	 */
+	#close(e) {
+		if (e?.defaultPrevented) { return; }
+		if (!this.open) { return; }
+		if (!this.dispatchEvent(new Event('beforeclose', {cancelable: true}))) { return; }
+		this.open = false;
+		this.dispatchEvent(new Event('close'));
 	}
 	#shown = false;
 	#clearTimeout() {
