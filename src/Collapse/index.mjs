@@ -108,7 +108,7 @@ export default class Collapse extends HTMLElement {
 	/** @type {boolean} 菜单模式 */
 	get menu() { return this.getAttribute('menu') !== null; }
 	set menu(value) { setBoolAttribute(this, 'menu', value); }
-	/** @type {boolean} 标签 */
+	/** @type {string} 标签 */
 	get label() { return this.getAttribute('label') || ''; }
 	set label(value) {
 		if (value) {
@@ -179,7 +179,7 @@ export default class Collapse extends HTMLElement {
 
 	}
 	updateSize() { this.#updateSize(); }
-	/** @type {ResizeObserver?} */
+	/** @type {ResizeObserver} */
 	#ro = new ResizeObserver(() => this.#updateSize());
 	/**
 	 * @returns {void}
