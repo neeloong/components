@@ -23,3 +23,42 @@
 </nl-collapse>
 
 </span>
+<div>二级导航菜单</div>
+<style>
+	.menu::part(header) {
+		background-color: #6666;
+		color: #FFF;
+		padding-inline-start: 16px;
+	}
+	.menu-item, .menu::part(main) {
+		padding-inline-start: 16px;
+	}
+	.menu {
+		background-color: #CCC;
+	}
+	.menu .menu {
+		background-color: #EEE;
+	}
+</style>
+<nl-collapse menu class="menu" label="菜单1">
+	<nl-collapse menu class="menu" label="菜单1-1">
+		<div class="menu-item"style="background-color:antiquewhite">菜单项目1-1-1</div>
+		<div class="menu-item"style="background-color:burlywood">菜单项目1-1-2</div>
+	</nl-collapse>
+	<nl-collapse menu class="menu" label="菜单1-2">
+		<div class="menu-item"style="background-color:antiquewhite">菜单项目1-2-1</div>
+		<div class="menu-item"style="background-color:burlywood">菜单项目1-2-2</div>
+	</nl-collapse>
+</nl-collapse>
+<div class="menu-item"style="background-color:aqua">菜单项目2</div>
+<nl-collapse menu class="menu" label="菜单3">
+	<nl-collapse menu class="menu" label="菜单3-1">
+		<div class="menu-item"style="background-color:antiquewhite">菜单项目3-1-1</div>
+		<div class="menu-item"style="background-color:burlywood">菜单项目3-1-2</div>
+	</nl-collapse>
+	<div class="menu-item"style="background-color:chartreuse">菜单项目3-2</div>
+	<nl-collapse menu class="menu" label="菜单3-3">
+		<div class="menu-item"style="background-color:antiquewhite">菜单项目3-3-1</div>
+		<div class="menu-item"style="background-color:burlywood">菜单项目3-3-2</div>
+	</nl-collapse>
+</nl-collapse>
