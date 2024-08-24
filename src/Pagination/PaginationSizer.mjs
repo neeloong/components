@@ -46,7 +46,7 @@ const defaultSizes = [10, 20, 30, 50, 100];
 function getSizes(t, d) {
 	const s = parseSizes(t) || new Set(defaultSizes);
 	if (typeof d === 'number') { s.add(d); }
-	return [...s].sort();
+	return [...s].sort((a, b) => a - b);
 }
 // TODO: 分页器
 // TODO: 可选范围，逗号隔开
@@ -98,7 +98,7 @@ export class PaginationSizer extends PaginationWidget {
 		const labels = [];
 		this.#labels = labels;
 		const labelText = this.label;
-		for (const o of [...s].sort()) {
+		for (const o of [...s].sort((a, b) => a - b)) {
 			const label = document.createElement('option');
 			label.label = labelText.replace(/#/g, String(o));
 			label.value = String(o);
@@ -129,7 +129,7 @@ export class PaginationSizer extends PaginationWidget {
 		if (!s.length) {
 			this.removeAttribute('sizes');
 		} else {
-			this.setAttribute('sizes', [...new Set(s)].sort().join(','));
+			this.setAttribute('sizes', [...new Set(s)].sort((a, b) => a - b).join(','));
 		}
 	}
 	#size = 0;
