@@ -54,7 +54,7 @@ main {
 :host([menu]) header {
 	margin-block-end: 0;
 }
-:host([animation]) section {
+:host([animation]) section.animation {
 	transition: block-size .3s;
 }
 :host([animation]) .trigger {
@@ -164,6 +164,12 @@ export default class Collapse extends HTMLElement {
 	#body = (() => {
 		const body = document.createElement('section');
 		body.setAttribute('part', 'main');
+		body.addEventListener('transitionend', () => {
+			body.classList.remove('animation');
+		});
+		body.addEventListener('transitioncancel', () => {
+			body.classList.remove('animation');
+		});
 		this.#shadow.appendChild(body);
 		return body;
 	})();
@@ -257,6 +263,7 @@ export default class Collapse extends HTMLElement {
 				break;
 			}
 			case 'open': {
+				this.#body.classList.add('animation');
 				if (!this.accordion) { break; }
 				if (!this.open) { break; }
 				this.#closeOthersWhenOpen();
