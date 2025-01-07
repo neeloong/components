@@ -132,12 +132,33 @@ export default class Collapse extends HTMLElement {
 		/** @param {Event} e */
 		const click = e => {
 			if (this.disabled) { return; }
+			if (e.defaultPrevented) { return; }
 			if (this.#shadow.activeElement !== header) { return; }
 			if (!this.dispatchEvent(new Event('beforechange', {cancelable: true}))) { return; }
 			this.open = !this.open;
 			this.dispatchEvent(new Event('change'));
 		};
 		header.addEventListener('click', click);
+		header.addEventListener('click', e => {
+			if (this.disabled) { return; }
+			if (e.defaultPrevented) { return; }
+			/** @type {Node?} */
+			let el = header;
+			for (;el;) {
+				const root = el.getRootNode();
+				if (!(root instanceof ShadowRoot || root instanceof Document)) {
+					return;
+				}
+				const {activeElement} = root;
+				if (!activeElement) {
+					if (!(root instanceof ShadowRoot)) { return; }
+					el = root.host;
+					continue;
+				}
+				if (!el.contains(activeElement)) { header.focus(); }
+				return;
+			}
+		}, true);
 		header.addEventListener('keydown', e => {
 			if (e.code === 'Enter' || e.code === 'Space') {
 				click(e);
