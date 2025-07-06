@@ -351,6 +351,13 @@ export default class Menu extends HTMLElement {
 		const {target} = this;
 		if (target === '') { return this.parentElement; }
 		if (!target) { return null; }
+		switch (target) {
+			case '+': return this.nextElementSibling;
+			case '-': return this.previousElementSibling;
+		}
+		if (target.includes(':scope')) {
+			try { return this.closest(target); } catch {}
+		}
 		try { return document.querySelector(target); } catch {}
 		return null;
 	}
